@@ -23,7 +23,7 @@ jobs:
         targets: x86_64-pc-windows-msvc
     
     - name: Cache cargo registry
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: |
           ~/.cargo/registry
@@ -35,7 +35,7 @@ jobs:
       run: cargo build --release --target x86_64-pc-windows-msvc
     
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: rsync-wrapper-windows-x64
         path: target/x86_64-pc-windows-msvc/release/*.exe
@@ -48,7 +48,7 @@ jobs:
         
     - name: Upload to release
       if: github.event_name == 'release'
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
         files: release/*
       env:
