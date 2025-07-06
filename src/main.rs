@@ -72,7 +72,14 @@ fn main() {
     };
     rsync_args.push(path_win_to_unix(&args.src));
     rsync_args.push(path_win_to_unix(&args.dest));
-
+    // Print command line with proper escaping
+    println!("Executing: {} {}",
+             rsync_path.display(),
+             rsync_args.iter()
+                 .map(|arg| if arg.contains(' ') { format!("\"{}\"", arg) } else { arg.clone() })
+                 .collect::<Vec<_>>()
+                 .join(" ")
+    );
     Command::new(path_rsync())
         .args(&rsync_args)
         .stdout(Stdio::inherit())
