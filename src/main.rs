@@ -74,7 +74,7 @@ fn main() {
     rsync_args.push(path_win_to_unix(&args.dest));
     // Print command line with proper escaping
     println!("Executing: {} {}",
-             rsync_path.display(),
+             path_rsync().display(),
              rsync_args.iter()
                  .map(|arg| if arg.contains(' ') { format!("\"{}\"", arg) } else { arg.clone() })
                  .collect::<Vec<_>>()
