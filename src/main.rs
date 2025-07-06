@@ -38,7 +38,7 @@ struct Args {
     delete: bool,
 
     #[clap(long)]
-    exclude: Option<String>,
+    exclude: Vec<String>,
 
     #[clap(long)]
     progress: bool,
@@ -146,7 +146,7 @@ fn prepare_rsync_options(args: &Args) -> Vec<String> {
     if args.delete {
         options.push("--delete".to_owned());
     }
-    if let Some(exclude) = &args.exclude {
+    for exclude in &args.exclude {
         options.push(format!("--exclude='{}'", exclude));
     }
     if args.progress {
