@@ -41,6 +41,9 @@ struct Args {
     exclude: Vec<String>,
 
     #[clap(long)]
+    partial: bool,
+
+    #[clap(long)]
     progress: bool,
 
     #[clap(long)]
@@ -155,6 +158,9 @@ fn prepare_rsync_options(args: &Args) -> Vec<String> {
     }
     for exclude in &args.exclude {
         options.push(format!("--exclude='{}'", exclude));
+    }
+    if args.partial {
+        options.push("--partial".to_owned());
     }
     if args.progress {
         options.push("--progress".to_owned());
